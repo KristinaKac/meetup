@@ -1,0 +1,37 @@
+<section class="header">
+    <div class="header_fixed header">
+        <div class="header_fixed_container">
+
+            <nav class="nav">
+                <ul class="nav_list">
+                    <li *ngIf="authService.user" class="nav_item">
+                        <a routerLink="meetups" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                            Все митапы</a>
+                    </li>
+                    <li *ngIf="authService.user" class="nav_item">
+                        <a routerLink="tasks" routerLinkActive="active-link"
+                            [routerLinkActiveOptions]="{exact: true}">Мои митапы</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div *ngIf="authService.user; else isNotAuth">
+                <button (click)="logout()" class="white_btn">
+                    Выйти
+                </button>
+            </div>
+
+            <ng-template #isNotAuth>
+                <div class="btns">
+                    <a class="white_btn" routerLink="registration">
+                        Регистрация
+                    </a>
+                    <a class="white_btn" routerLink="login">
+                        Войти
+                    </a>
+                </div>
+            </ng-template>
+
+        </div>
+    </div>
+</section>

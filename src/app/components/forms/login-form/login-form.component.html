@@ -1,0 +1,26 @@
+<form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form_control">
+        <mat-form-field appearance="outline">
+            <mat-label>Почта</mat-label>
+            <input formControlName="email" type="email" matInput required="true">
+        </mat-form-field>
+        <div class="error" *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
+            <div *ngIf="loginForm.controls['email'].hasError('required')">Необходимо заполнить поле 'почта'</div>
+            <div *ngIf="loginForm.controls['email'].hasError('email')">Пожалуйста, укажите корректный адрес</div>
+        </div>
+    </div>
+    <div class="form_control">
+        <mat-form-field appearance="outline">
+            <mat-label>Пароль</mat-label>
+            <input formControlName="password" type="password" matInput required="true">
+        </mat-form-field>
+        <div class="error" *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+            <div *ngIf="loginForm.controls['password'].hasError('required')">Необходимо заполнить поле 'пароль'</div>
+            <div *ngIf="loginForm.controls['password'].hasError('minlength')">Минимальная длина пароля 4 символа</div>
+        </div>
+    </div>
+
+    <div class="form_control">
+        <button [disabled]="loginForm.invalid" type="submit" mat-raised-button color="primary">Войти</button>
+    </div>
+</form>

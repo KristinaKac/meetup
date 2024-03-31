@@ -1,0 +1,17 @@
+<form class="filter_form" [formGroup]="filterForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="input" appearance="outline">
+        <mat-label>Поиск</mat-label>
+        <input (keyup)="onSubmit()" formControlName="search" matInput>
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline">
+        <mat-label>Критерий</mat-label>
+        <mat-select formControlName="criterion">
+            <mat-option value="name">По названию</mat-option>
+            <mat-option value="description">По описанию</mat-option>
+            <mat-option value="location">По местоположению</mat-option>
+            <mat-option value="time">По дате</mat-option>
+            <mat-option value="owner">По автору</mat-option>
+        </mat-select>
+    </mat-form-field>
+</form>
