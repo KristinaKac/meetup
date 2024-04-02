@@ -6,6 +6,10 @@
             <input class="input" formControlName="name" type="text" matInput required="true">
         </mat-form-field>
     </div>
+    <div class="error" *ngIf="meetupForm.controls['name'].invalid && meetupForm.controls['name'].touched">
+        <div *ngIf="meetupForm.controls['name'].hasError('required')">Необходимо заполнить поле</div>
+        <div *ngIf="meetupForm.controls['name'].hasError('minlength')">Минимум 3 символа</div>
+    </div>
 
     <div class="form_control">
         <mat-form-field appearance="outline">
@@ -16,8 +20,8 @@
     <div class="form_control">
         <mat-form-field class="input" appearance="outline">
             <mat-label>Дата проведения</mat-label>
-            <input matInput formControlName="time" [matDatepicker]="dp">
-            <mat-hint>{{getDateFormatString()}}</mat-hint>
+            <input [min]="today" matInput formControlName="time" [matDatepicker]="dp">
+            <mat-hint>ДД.ММ.ГГГГ</mat-hint>
             <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
             <mat-datepicker #dp></mat-datepicker>
         </mat-form-field>

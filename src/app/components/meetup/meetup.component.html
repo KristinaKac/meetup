@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card [ngClass]="{greyBack: isOldMeetup}">
     <mat-card-content>
 
         <div>
@@ -15,9 +15,14 @@
             <div class="meetup_time">{{getDate(meetup.time)}}</div>
             <div class="meetup_location">{{meetup.location}}</div>
 
-            <button *ngIf="!isSubscribe" (click)="subscribe()" mat-raised-button color="primary">Подписаться</button>
-            <button *ngIf="isSubscribe" (click)="unsubscribe()" mat-raised-button color="primary">Отписаться</button>
+            <div *ngIf="!isOldMeetup">
+                <button *ngIf="!isSubscribe" (click)="subscribe()" mat-raised-button color="primary">Я пойду</button>
+                <button *ngIf="isSubscribe" (click)="unsubscribe()" mat-raised-button color="primary">Не смогу
+                    пойти</button>
+            </div>
 
+            <button *ngIf="isCanEdit" mat-raised-button color="primary">Редактировать</button>
+            <button *ngIf="isCanEdit" mat-raised-button color="primary">Удалить</button>
 
             <button (click)="isOpen = !isOpen" mat-mini-fab color="primary">
                 <mat-icon>{{isOpen ? 'expand_less' : 'expand_more'}}</mat-icon>

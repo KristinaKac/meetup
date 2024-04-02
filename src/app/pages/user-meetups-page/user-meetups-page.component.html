@@ -1,1 +1,10 @@
-<app-meetup-form (createEvent)="create($event)"></app-meetup-form>
+<!-- <app-meetup-form (createEvent)="create($event)"></app-meetup-form> -->
+
+<button mat-raised-button color="primary">Создать новый митап</button>
+
+<ul class="meetup_list">
+    <app-meetup
+    *ngFor="let item of meetupService.userMeetupList" 
+    [meetup]="item"
+    ></app-meetup>
+</ul>

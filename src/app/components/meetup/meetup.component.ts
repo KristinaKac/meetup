@@ -1,8 +1,9 @@
 import { AuthService } from './../../services/auth.service';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { IMeetup } from '../../models/meetup';
 import 'moment-timezone';
 import moment from 'moment';
+import { now } from 'moment-timezone';
 
 
 moment.locale('ru');
@@ -14,13 +15,26 @@ moment.tz.setDefault();
   templateUrl: './meetup.component.html',
   styleUrl: './meetup.component.scss'
 })
-export class MeetupComponent {
+export class MeetupComponent implements OnInit {
 
   constructor(
     private authService: AuthService
   ) { }
 
+  ngOnInit(): void {
+    this.checkDateMeetup();
+
+    if (this.meetup.owner.id === this.authService.user?.id) {
+      this.isCanEdit = true;
+    } else {
+      this.isCanEdit = false;
+    }
+  }
+
   isOpen: boolean = false;
+  isOldMeetup: boolean = false;
+  isCanEdit: boolean = false;
+
 
   @Input() meetup!: IMeetup
 
@@ -45,5 +59,14 @@ export class MeetupComponent {
   }
   getDate(time: string) {
     return moment(time).format('DD.MM.YYYY, HH:mm');
+  }
+  checkDateMeetup(): void {
+    const now = moment();
+    const utcDate = moment.utc(this.meetup.time);
+    if (utcDate.isAfter(now)) {
+      this.isOldMeetup = false
+    } else {
+      this.isOldMeetup = true;
+    }
   }
 }

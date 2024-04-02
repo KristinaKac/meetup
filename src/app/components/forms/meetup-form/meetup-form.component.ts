@@ -11,6 +11,7 @@ import 'moment/locale/ru';
 })
 export class MeetupFormComponent {
   meetupForm: FormGroup
+  today = new Date();
 
   @Output() createEvent = new EventEmitter();
 
@@ -18,7 +19,7 @@ export class MeetupFormComponent {
     @Inject(MAT_DATE_LOCALE) private _locale: string,
   ) {
     this.meetupForm = new FormGroup({
-      name: new FormControl<string>('', [Validators.required]),
+      name: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
       description: new FormControl<string>('', [Validators.required]),
       time: new FormControl<string>('', [Validators.required]),
       timeHours: new FormControl<string>('', [Validators.required, Validators.pattern('([01]?[0-9]|2[0-3]):[0-5][0-9]')]),
@@ -36,18 +37,9 @@ export class MeetupFormComponent {
     if (this.meetupForm.invalid) { return }
 
     const timeArr = this.meetupForm.value.timeHours.split(':');
-
     this.meetupForm.value.time.hour(timeArr[0]);
-    this.meetupForm.value.time.minute(timeArr[1]);   
+    this.meetupForm.value.time.minute(timeArr[1]);
 
     this.createEvent.emit(this.meetupForm);
   }
-
-  getDateFormatString(): string {
-    if (this._locale === 'ru_RU') {
-      return 'ДД.ММ.ГГГГ';
-    }
-    return '';
-  }
-
 }

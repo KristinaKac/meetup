@@ -13,6 +13,7 @@ export class MeetupService {
   baseURL: string = `${environment.backendOrigin}/meetup`;
 
   public meetupList!: IMeetup[];
+  public userMeetupList!: IMeetup[];
 
   constructor(
     private http: HttpClient,
