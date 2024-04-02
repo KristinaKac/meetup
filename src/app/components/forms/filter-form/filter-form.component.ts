@@ -1,31 +1,46 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MatDatepickerIntl } from '@angular/material/datepicker';
+import 'moment/locale/ru';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-filter-form',
   templateUrl: './filter-form.component.html',
   styleUrl: './filter-form.component.scss'
 })
-export class FilterFormComponent {
+
+export class FilterFormComponent implements OnInit {
 
   filterForm: FormGroup;
 
   @Output() filterEvent = new EventEmitter();
   @Output() resetEvent = new EventEmitter();
 
-  constructor() {
+  constructor(
+    @Inject(MAT_DATE_LOCALE) private _locale: string,
+  ) {
     this.filterForm = new FormGroup({
       search: new FormControl<string>(''),
       criterion: new FormControl<'name' | 'description' | 'location' | 'time' | 'owner'>('name', [Validators.required])
     });
   }
-  onSubmit() {
-    if (this.filterForm.invalid) { return }
-    this.filterEvent.emit({ search: this.filterForm.value.search, criterion: this.filterForm.value.criterion })
+  ngOnInit(): void {
+    this.filterForm.controls['search'].valueChanges
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged())
+      .subscribe((text) => {
+        if (this.filterForm.invalid) { return }
+        this.filterEvent.emit({ search: text, criterion: this.filterForm.value.criterion })
+      });
   }
-  onReset() {
-    this.resetEvent.emit();
-    this.filterForm.reset();
-    this.filterForm.controls['criterion'].setValue('name');
+
+  getDateFormatString(): string {
+    if (this._locale === 'ru_RU') {
+      return 'ДД.ММ.ГГГГ';
+    }
+    return '';
   }
 }

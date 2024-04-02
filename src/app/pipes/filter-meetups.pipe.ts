@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { IMeetup } from '../models/meetup';
+import moment from 'moment';
 
 @Pipe({
   name: 'filterMeetups'
@@ -19,11 +20,16 @@ export class FilterMeetupsPipe implements PipeTransform {
       case 'name':
       case 'description':
       case 'location':
-      case 'time':
         meetupList = meetupList.filter(item => {
           if (!item[criterion]) { return }
           return item[criterion].toLowerCase().includes(search.toLowerCase())
         });
+        break;
+      case 'time':
+        meetupList = meetupList.filter(item => {
+          const date = new Date(item.time);
+          return moment(date).isSame(moment(search), 'D');
+        })
         break;
       default:
         break;

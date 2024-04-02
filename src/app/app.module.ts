@@ -12,9 +12,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import {MatExpansionModule} from '@angular/material/expansion';
-import {MatIconModule} from '@angular/material/icon';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginFormComponent } from './components/forms/login-form/login-form.component';
@@ -23,6 +25,9 @@ import { HeaderComponent } from './components/header/header.component';
 import { authInterceptor } from './interceptors/auth.interceptor';
 import { FilterFormComponent } from './components/forms/filter-form/filter-form.component';
 import { FilterMeetupsPipe } from './pipes/filter-meetups.pipe';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MeetupFormComponent } from './components/forms/meetup-form/meetup-form.component';
+import { UserMeetupsPageComponent } from './pages/user-meetups-page/user-meetups-page.component';
 
 
 @NgModule({
@@ -34,7 +39,9 @@ import { FilterMeetupsPipe } from './pipes/filter-meetups.pipe';
     MeetupComponent,
     HeaderComponent,
     FilterFormComponent,
-    FilterMeetupsPipe
+    FilterMeetupsPipe,
+    MeetupFormComponent,
+    UserMeetupsPageComponent
   ],
   imports: [
     BrowserModule,
@@ -48,10 +55,13 @@ import { FilterMeetupsPipe } from './pipes/filter-meetups.pipe';
     ReactiveFormsModule,
     MatExpansionModule,
     MatIconModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: authInterceptor, multi: true },
+    { provide: MAT_DATE_LOCALE, useValue: 'ru_RU' },
+    provideMomentDateAdapter(),
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]

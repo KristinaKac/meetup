@@ -12,7 +12,7 @@
         </div>
 
         <div>
-            <div class="meetup_time">{{meetup.time}}</div>
+            <div class="meetup_time">{{getDate(meetup.time)}}</div>
             <div class="meetup_location">{{meetup.location}}</div>
 
             <button *ngIf="!isSubscribe" (click)="subscribe()" mat-raised-button color="primary">Подписаться</button>

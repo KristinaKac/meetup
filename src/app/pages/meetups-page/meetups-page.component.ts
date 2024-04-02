@@ -39,9 +39,5 @@ export class MeetupsPageComponent {
   filter(value: { search: string, criterion: 'name' | 'description' | 'location' | 'time' | 'owner' }) {
     this.searchFilter = value.search;
     this.criterionFilter = value.criterion;
-    // this.meetupService.filter(value.search, value.criterion);
-  }
-  resetFilter() {
-    this.getAll();
   }
 }
