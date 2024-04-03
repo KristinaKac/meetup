@@ -1,10 +1,10 @@
+import { IMeetup } from './../../models/meetup';
 import { AuthService } from './../../services/auth.service';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IMeetup } from '../../models/meetup';
 import 'moment-timezone';
 import moment from 'moment';
-import { now } from 'moment-timezone';
-
+import { MatDialog } from '@angular/material/dialog';
+import { ModalComponent } from '../modal/modal.component';
 
 moment.locale('ru');
 // moment.tz.setDefault("Europe/Moscow");
@@ -18,7 +18,8 @@ moment.tz.setDefault();
 export class MeetupComponent implements OnInit {
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +41,7 @@ export class MeetupComponent implements OnInit {
 
   @Output() subscribeEvent = new EventEmitter();
   @Output() unsubscribeEvent = new EventEmitter();
+  @Output() deleteEvent = new EventEmitter();
 
   get isSubscribe() {
     return this.meetup.users.find(item => item.id === this.authService.user?.id);
@@ -57,6 +59,10 @@ export class MeetupComponent implements OnInit {
       idUser: this.authService.user?.id
     })
   }
+  delete(): void {
+    if (!confirm('Вы действительно хотите удалить митап?')) { return }
+    this.deleteEvent.emit(this.meetup.id);
+  }
   getDate(time: string) {
     return moment(time).format('DD.MM.YYYY, HH:mm');
   }
@@ -68,5 +74,11 @@ export class MeetupComponent implements OnInit {
     } else {
       this.isOldMeetup = true;
     }
+  }
+  openDialog(): void {
+    this.dialog.open(ModalComponent, {
+      data: { isCreate: false, meetup: this.meetup },
+      width: '800px'
+    });
   }
 }

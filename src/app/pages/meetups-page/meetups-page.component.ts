@@ -40,4 +40,10 @@ export class MeetupsPageComponent {
     this.searchFilter = value.search;
     this.criterionFilter = value.criterion;
   }
+  delete(id: number) {
+    this.meetupService.delete(id).subscribe((data: IMeetup | null) => {
+      if (!data) { return }
+      console.log(data)
+    })
+  }
 }

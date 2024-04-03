@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { IMeetup } from '../models/meetup';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, catchError, of, tap } from 'rxjs';
 
@@ -67,6 +67,37 @@ export class MeetupService {
       .pipe(
         catchError((err): Observable<null> => {
           alert("Митап с таким названием уже существует");
+          return of(null);
+        })
+      )
+  }
+  edit(meetup: IMeetup, id: number): Observable<IMeetup | null> {
+    return this.http
+      .put<IMeetup>(`${this.baseURL}/${id}`,
+        {
+          name: meetup.name,
+          description: meetup.description,
+          time: meetup.time,
+          duration: meetup.duration,
+          location: meetup.location,
+          target_audience: meetup.target_audience,
+          need_to_know: meetup.need_to_know,
+          will_happen: meetup.will_happen,
+          reason_to_come: meetup.reason_to_come
+        })
+      .pipe(
+        catchError((err): Observable<null> => {
+          alert(err.error.message);
+          return of(null);
+        })
+      )
+  }
+  delete(id: number): Observable<IMeetup | null> {
+    return this.http
+      .delete<IMeetup>(`${this.baseURL}/${id}`)
+      .pipe(
+        catchError((err): Observable<null> => {
+          alert(err.error.message);
           return of(null);
         })
       )
