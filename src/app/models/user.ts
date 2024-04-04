@@ -1,7 +1,9 @@
 export interface IUser {
     email: string;
     id: number;
-    roles: Array<IRoles>;
+    password?: string,
+    fio?: string,
+    roles?: Array<IRoles>;
 }
 
 export interface IRoles {

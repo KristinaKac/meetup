@@ -9,7 +9,7 @@ export interface IMeetup {
     reason_to_come: string,
     time: string,
     duration: number,
-    createdBy: number,
+    createdBy: number | Array<number>,
     owner: {
         id: number,
         email: string,
@@ -23,6 +23,6 @@ export interface IMeetup {
             password: string,
             fio: string
         }
-    ]
+    ] | []
 }
 

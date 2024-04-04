@@ -5,6 +5,7 @@ import { IMeetup } from '../../models/meetup';
 import { FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ModalComponent } from '../../components/modal/modal.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-meetups-page',
@@ -12,28 +13,22 @@ import { ModalComponent } from '../../components/modal/modal.component';
   styleUrl: './user-meetups-page.component.scss'
 })
 export class UserMeetupsPageComponent implements OnInit {
+
+  public meetupList$!: Observable<IMeetup[]>;
+
   constructor(
     public meetupService: MeetupService,
-    private authService: AuthService,
+    public authService: AuthService,
     public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
-    this.getAll();
-  }
-
-  getAll() {
+    this.meetupList$ = this.meetupService.meetupList;
     this.meetupService.getAll().subscribe((data: IMeetup[] | null) => {
       if (!data) { return }
-
-      this.meetupService.userMeetupList = data.filter(
-        item => item.owner.id === this.authService.user?.id);
-    })
-  }
-  delete(id: number) {
-    this.meetupService.delete(id).subscribe((data: IMeetup | null) => {
-      if (!data) { return }
-      console.log(data)
+      if (this.authService.user) {
+        this.meetupService.meetupList = data;
+      }
     })
   }
   openDialog(): void {
@@ -41,5 +36,11 @@ export class UserMeetupsPageComponent implements OnInit {
       data: { isCreate: true },
       width: '800px'
     });
+  }
+  delete(id: number) {
+    this.meetupService.delete(id).subscribe((data: IMeetup | null) => {
+      if (!data) { return }
+      this.meetupService.removeMeetup = data;
+    })
   }
 }

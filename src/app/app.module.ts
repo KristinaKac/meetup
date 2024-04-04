@@ -30,6 +30,8 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MeetupFormComponent } from './components/forms/meetup-form/meetup-form.component';
 import { UserMeetupsPageComponent } from './pages/user-meetups-page/user-meetups-page.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { UserFilterMeetupsPipe } from './pipes/user-filter-meetups.pipe';
+import { UsersPageComponent } from './pages/users-page/users-page.component';
 
 
 @NgModule({
@@ -44,7 +46,9 @@ import { ModalComponent } from './components/modal/modal.component';
     FilterMeetupsPipe,
     MeetupFormComponent,
     UserMeetupsPageComponent,
-    ModalComponent
+    ModalComponent,
+    UserFilterMeetupsPipe,
+    UsersPageComponent
   ],
   imports: [
     BrowserModule,

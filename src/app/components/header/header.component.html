@@ -12,6 +12,10 @@
                         <a routerLink="userMeetups" routerLinkActive="active-link"
                             [routerLinkActiveOptions]="{exact: true}">Мои митапы</a>
                     </li>
+                    <li *ngIf="authService.user" class="nav_item">
+                        <a routerLink="users" routerLinkActive="active-link"
+                            [routerLinkActiveOptions]="{exact: true}">Пользователи</a>
+                    </li>
                 </ul>
             </nav>
 

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Pipe, PipeTransform } from '@angular/core';
 import { IMeetup } from '../models/meetup';
 import moment from 'moment';
