@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatTableModule} from '@angular/material/table';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -32,6 +33,7 @@ import { UserMeetupsPageComponent } from './pages/user-meetups-page/user-meetups
 import { ModalComponent } from './components/modal/modal.component';
 import { UserFilterMeetupsPipe } from './pipes/user-filter-meetups.pipe';
 import { UsersPageComponent } from './pages/users-page/users-page.component';
+import { UserTableRowComponent } from './components/user-table-row/user-table-row.component';
 
 
 @NgModule({
@@ -48,7 +50,8 @@ import { UsersPageComponent } from './pages/users-page/users-page.component';
     UserMeetupsPageComponent,
     ModalComponent,
     UserFilterMeetupsPipe,
-    UsersPageComponent
+    UsersPageComponent,
+    UserTableRowComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +67,8 @@ import { UsersPageComponent } from './pages/users-page/users-page.component';
     MatIconModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: authInterceptor, multi: true },

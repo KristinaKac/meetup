@@ -1,1 +1,14 @@
-<p>users-page works!</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th *ngFor="let title of tableTitles">{{title}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr 
+        *ngFor="let user of userList$ | async as userList" 
+        [user]="user" [roleList]="roleList$" app-user-table-row
+        (updateEvent)="update($event)"
+        ></tr>
+    </tbody>
+</table>

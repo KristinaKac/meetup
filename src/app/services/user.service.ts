@@ -28,11 +28,25 @@ export class UserService {
   getAll(): Observable<IUser[] | null> {
     return this.http
       .get<IUser[]>(`${this.baseURL}`)
-      .pipe(
-        catchError((err): Observable<null> => {
+      .pipe(catchError((err): Observable<null> => {
           alert(err.error.message);
           return of(null);
         })
       )
   }
+  update(user: IUser): Observable<IUser | null> {
+    console.log(user)
+    return this.http
+      .put<IUser>(`${this.baseURL}/${user.id}`, {
+        emai: user.email,
+        // password: user.password,
+        fio: user.fio
+      })
+      .pipe(catchError((err): Observable<null> => {
+          alert(err.error.message);
+          return of(null);
+        })
+      )
+  }
+
 }
