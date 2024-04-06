@@ -1,24 +1,11 @@
-<td *ngIf="!isEdit">{{user.fio}}</td>
-<td *ngIf="!isEdit">{{user.email}}</td>
-<td *ngIf="!isEdit">***********</td>
-<td *ngIf="!isEdit">
-    <div *ngFor="let role of user.roles">{{role.name}}</div>
-</td>
-
-<td *ngIf="isEdit">
-    <input [(ngModel)]="fio" type="text" matInput required="true">
-</td>
-<td *ngIf="isEdit">
-    <input [(ngModel)]="email" type="email" matInput required="true">
-</td>
-<td *ngIf="isEdit">
-    <input [(ngModel)]="password" type="password" matInput required="true">
-</td>
-<td *ngIf="isEdit">
-    <p *ngFor="let role of roleList | async">{{role.name}}</p>
-</td>
-<td>
-    <button (click)="isEdit = !isEdit" mat-raised-button color="primary">{{isEdit ? 'отмена' : 'редактировать'}}</button>
-    <button (click)="onSubmit()" mat-raised-button color="primary" *ngIf="isEdit">Сохранить</button>
-    <button mat-raised-button color="primary" *ngIf="!isEdit">удалить</button>
-</td>
+<div class="row">
+    <div *ngIf="!isEdit">{{user.fio}}</div>
+    <div *ngIf="!isEdit">{{user.email}}</div>
+    <div *ngIf="!isEdit">***********</div>
+    <div *ngIf="!isEdit">
+        <div *ngFor="let role of user.roles">{{role.name}}</div>
+    </div>
+    <button (click)="isEdit = !isEdit" mat-raised-button color="primary">{{isEdit ? 'отм' :
+        'ред'}}</button>
+</div>
+<app-user-form *ngIf="isEdit" (updateEvent)="update($event)" [roleList]="roleList" [user]="user"></app-user-form>

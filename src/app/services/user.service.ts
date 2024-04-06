@@ -3,6 +3,7 @@ import { environment } from '../../environments/environment.development';
 import { BehaviorSubject, Observable, catchError, of } from 'rxjs';
 import { IUser } from '../models/user';
 import { HttpClient } from '@angular/common/http';
+import { IRole } from '../models/role';
 
 @Injectable({
   providedIn: 'root'
@@ -37,9 +38,9 @@ export class UserService {
   update(user: IUser): Observable<IUser | null> {
     console.log(user)
     return this.http
-      .put<IUser>(`${this.baseURL}/${user.id}`, {
+      .put<IUser>(`${this.baseURL}/${user.id}`,{
         emai: user.email,
-        // password: user.password,
+        password: user.password,
         fio: user.fio
       })
       .pipe(catchError((err): Observable<null> => {
@@ -48,5 +49,23 @@ export class UserService {
         })
       )
   }
+  add(): Observable<IRole | null> {
+    return this.http
+      .put<IRole>(`${this.baseURL}/role`, { name: 'ADMIN', userId: 451 })
+      .pipe(catchError((err): Observable<null> => {
+        alert(err.error.message);
+        return of(null);
+      })
+      )
+  }
+  // add(name: string, userId: number): Observable<IRole | null> {
+  //   return this.http
+  //     .put<IRole>(`${this.baseURL}`, { name: 'ADMIN', userId: 451 })
+  //     .pipe(catchError((err): Observable<null> => {
+  //       alert(err.error.message);
+  //       return of(null);
+  //     })
+  //     )
+  // }
 
 }

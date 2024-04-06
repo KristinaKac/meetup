@@ -34,6 +34,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { UserFilterMeetupsPipe } from './pipes/user-filter-meetups.pipe';
 import { UsersPageComponent } from './pages/users-page/users-page.component';
 import { UserTableRowComponent } from './components/user-table-row/user-table-row.component';
+import { UserFormComponent } from './components/forms/user-form/user-form.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { UserTableRowComponent } from './components/user-table-row/user-table-ro
     ModalComponent,
     UserFilterMeetupsPipe,
     UsersPageComponent,
-    UserTableRowComponent
+    UserTableRowComponent,
+    UserFormComponent
   ],
   imports: [
     BrowserModule,

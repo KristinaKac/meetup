@@ -39,12 +39,24 @@ export class UsersPageComponent {
       this.roleService.roleList = data;
     });
   }
-  update(value: { id: number, fio: string, email: string, password: string}) {
+  updateUser(value: { id: number, fio: string, email: string, password: string }) {
     this.userService.update(value).subscribe((data: IUser | null) => {
       if (!data) { return }
       console.log(data)
     });
   }
+  addRole() {
+    this.userService.add().subscribe((data: IRole | null) => {
+      if (!data) { return }
+      console.log(data)
+    });
+  }
+  // addRole(value: {name: string, userId: number}) {
+  //   this.roleService.add(value.name, value.userId).subscribe((data: IRole | null) => {
+  //     if (!data) { return }
+  //     console.log(data)
+  //   });
+  // }
 }
 
 
