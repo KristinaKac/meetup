@@ -1,3 +1,5 @@
+<button (click)="isEdit = !isEdit" mat-raised-button color="primary">{{isEdit ? 'Закрыть' : 'Добавить пользователя'}}</button>
+
 <div class="table" *ngFor="let user of userList$ | async as userList" [user]="user" [roleList]="roleList$"
     app-user-table-row (updateEvent)="update($event)" (deleteEvent)="deleteUser($event)">
 </div>

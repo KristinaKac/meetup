@@ -1,8 +1,5 @@
-<mat-card class="auth_card">
-    <mat-card-header class="auth_header">
-        <h2>Вход</h2>
-    </mat-card-header>
+<mat-card>
     <mat-card-content>
-        <app-login-form (loginEvent)="login($event)"></app-login-form>
+        <app-login-form [formType]="formType" (loginEvent)="login($event)" (registrationEvent)="registration($event)"></app-login-form>
     </mat-card-content>
 </mat-card>

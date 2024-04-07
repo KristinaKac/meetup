@@ -41,23 +41,23 @@ export class UserFormComponent {
 
   onSubmit() {
     if (this.userForm.value.password === '') {
-      // this.updateEvent.emit({
-      //   id: this.user.id,
-      //   fio: this.userForm.value.fio,
-      //   email: this.userForm.value.email,
-      //   role: this.userForm.value.role
-      // })
+      this.updateEvent.emit({
+        id: this.user.id,
+        fio: this.userForm.value.fio,
+        email: this.userForm.value.email,
+        role: this.userForm.value.role
+      })
       this.closeForm()
     } else if (this.userForm.value.password.length < 4) {
       return
     } else if (this.userForm.value.password.length >= 4) {
-      // this.updateEvent.emit({
-      //   id: this.user.id,
-      //   fio: this.userForm.value.fio,
-      //   email: this.userForm.value.email,
-      //   password: this.userForm.value.password,
-      //   role: this.userForm.value.role
-      // });
+      this.updateEvent.emit({
+        id: this.user.id,
+        fio: this.userForm.value.fio,
+        email: this.userForm.value.email,
+        password: this.userForm.value.password,
+        role: this.userForm.value.role
+      });
       this.closeForm()
     }
   }

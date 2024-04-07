@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -10,9 +10,13 @@ export class LoginFormComponent {
   loginForm: FormGroup
 
   @Output() loginEvent = new EventEmitter();
+  @Output() registrationEvent = new EventEmitter();
+  @Input() formType: 'login' | 'registration' = 'login';
+
 
   constructor() {
     this.loginForm = new FormGroup({
+      fio: new FormControl<string>('', [Validators.minLength(2)]),
       email: new FormControl<string>('', [Validators.required, Validators.email]),
       password: new FormControl<string>('', [Validators.required, Validators.minLength(4)])
     });
@@ -21,11 +25,24 @@ export class LoginFormComponent {
   onSubmit() {
     if (this.loginForm.invalid) { return }
 
-    this.loginEvent.emit({
-      email: this.loginForm.value.email,
-      password: this.loginForm.value.password
-    });
-
-    this.loginForm.reset();
+    switch (this.formType) {
+      case 'login':
+        this.loginEvent.emit({
+          email: this.loginForm.value.email,
+          password: this.loginForm.value.password
+        });
+        this.loginForm.reset();
+        break;
+      case 'registration':
+        this.registrationEvent.emit({
+          fio: this.loginForm.value.fio,
+          email: this.loginForm.value.email,
+          password: this.loginForm.value.password
+        });
+        this.loginForm.reset();
+        break;
+      default:
+        break;
+    }
   }
 }

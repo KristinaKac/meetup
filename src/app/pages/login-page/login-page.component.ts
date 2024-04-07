@@ -9,6 +9,9 @@ import { IUser } from '../../models/user';
   styleUrl: './login-page.component.scss'
 })
 export class LoginPageComponent {
+
+  formType: 'login' | 'registration' = 'login';
+
   constructor(
     private authService: AuthService,
     private router: Router
@@ -17,7 +20,13 @@ export class LoginPageComponent {
   login(value: { email: string, password: string }) {
     this.authService.login(value.email, value.password).subscribe((user: IUser | null) => {
       if (!user) { return }
-      this.router.navigate(['meetups'])
+      this.router.navigate(['meetups']);
+    })
+  }
+  registration(value: { fio: string, email: string, password: string }) {
+    this.authService.registration(value.fio, value.email, value.password).subscribe((user: IUser | null) => {
+      if (!user) { return }
+      this.router.navigate(['meetups']);
     })
   }
 }

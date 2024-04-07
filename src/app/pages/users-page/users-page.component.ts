@@ -12,7 +12,8 @@ import { UserService } from '../../services/user.service';
   styleUrl: './users-page.component.scss'
 })
 export class UsersPageComponent {
-  tableTitles: string[] = ['Имя', 'Почта', 'Пароль', 'Роли', 'Действия']
+  tableTitles: string[] = ['Имя', 'Почта', 'Пароль', 'Роли', 'Действия'];
+  public isEdit: boolean = false;
   public userList$!: Observable<IUser[]>;
   public roleList$!: Observable<IRole[]>;
 
@@ -53,10 +54,10 @@ export class UsersPageComponent {
     });
   }
   deleteUser(id: number) {
-    // this.userService.delete(id).subscribe((data: IRole | null) => {
-    //   if (!data) { return }
-      
-    // });
+    this.userService.delete(id).subscribe((data: IUser | null) => {
+      if (!data) { return }
+      this.getUsers();
+    });
   }
 }
 

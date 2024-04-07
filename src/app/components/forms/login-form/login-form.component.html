@@ -1,4 +1,15 @@
 <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h2>{{formType === 'registration' ? 'Регистрация' : 'Вход'}}</h2>
+    <div *ngIf="formType === 'registration'" class="form_control">
+        <mat-form-field appearance="outline">
+            <mat-label>Имя</mat-label>
+            <input formControlName="fio" type="text" matInput>
+        </mat-form-field>
+        <div class="error" *ngIf="loginForm.controls['fio'].invalid && loginForm.controls['fio'].touched">
+            <div *ngIf="loginForm.controls['fio'].hasError('required')">Необходимо заполнить поле 'имя'</div>
+            <div *ngIf="loginForm.controls['fio'].hasError('minlength')">Минимальная длина 2 символа</div>
+        </div>
+    </div>
     <div class="form_control">
         <mat-form-field appearance="outline">
             <mat-label>Почта</mat-label>
@@ -20,7 +31,12 @@
         </div>
     </div>
 
+    <button (click)="formType = 'login'" *ngIf="formType === 'registration'">Есть аккаунт? Войдите</button>
+    <button (click)="formType = 'registration'" *ngIf="formType === 'login'">Нет аккаунта? Создайте</button>
+
     <div class="form_control">
-        <button [disabled]="loginForm.invalid" type="submit" mat-raised-button color="primary">Войти</button>
+        <button [disabled]="loginForm.invalid" type="submit" mat-raised-button color="primary">
+        {{formType === 'registration' ? 'Зарегистрироваться' : 'Войти'}}
+        </button>
     </div>
 </form>
