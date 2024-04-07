@@ -8,7 +8,7 @@
             </div>
 
             <div class="meetup_description">{{meetup.description}}</div>
-            <!-- <div class="meetup_user">{{meetup.owner.fio}}</div> -->
+            <div class="meetup_user">{{meetup.owner && meetup.owner.fio ? meetup.owner.fio : 'Неизвестный автор'}}</div>
         </div>
 
         <div>

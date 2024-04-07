@@ -21,7 +21,7 @@ import {MatTableModule} from '@angular/material/table';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginFormComponent } from './components/forms/login-form/login-form.component';
+import { AuthFormComponent } from './components/forms/auth-form/auth-form.component';
 import { MeetupComponent } from './components/meetup/meetup.component';
 import { HeaderComponent } from './components/header/header.component';
 import { authInterceptor } from './interceptors/auth.interceptor';
@@ -42,7 +42,7 @@ import { UserFormComponent } from './components/forms/user-form/user-form.compon
     AppComponent,
     LoginPageComponent,
     MeetupsPageComponent,
-    LoginFormComponent,
+    AuthFormComponent,
     MeetupComponent,
     HeaderComponent,
     FilterFormComponent,

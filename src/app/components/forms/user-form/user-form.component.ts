@@ -10,16 +10,17 @@ import { IUser } from '../../../models/user';
   styleUrl: './user-form.component.scss'
 })
 export class UserFormComponent {
-  userForm!: FormGroup
+  userForm!: FormGroup;
 
   constructor(
     private fb: FormBuilder
-  ) {
+  ) { }
 
-  }
+  @Input() isCreate = false;
+
   ngOnInit(): void {
     this.userForm = new FormGroup({
-      fio: new FormControl<string>(this.user.fio || '', [Validators.required, Validators.minLength(2)]),
+      fio: new FormControl<string>(this.user?.fio || '', [Validators.required, Validators.minLength(2)]),
       email: new FormControl<string>(this.user?.email || '', [Validators.required, Validators.email]),
       password: new FormControl<string>('', [Validators.minLength(4)]),
       role: new FormControl<string>('USER')
@@ -30,6 +31,7 @@ export class UserFormComponent {
   @Input() user!: IUser;
 
   @Output() updateEvent = new EventEmitter();
+  @Output() createUserEvent = new EventEmitter();
   @Output() closeFormEvent = new EventEmitter();
 
   check(roleName: string) {
@@ -40,6 +42,14 @@ export class UserFormComponent {
   }
 
   onSubmit() {
+    if (!this.isCreate) {
+      this.submitEdit();
+    } else {
+      this.submitCreate();
+    }
+  }
+
+  submitEdit() {
     if (this.userForm.value.password === '') {
       this.updateEvent.emit({
         id: this.user.id,
@@ -49,7 +59,7 @@ export class UserFormComponent {
       })
       this.closeForm()
     } else if (this.userForm.value.password.length < 4) {
-      return
+      return;
     } else if (this.userForm.value.password.length >= 4) {
       this.updateEvent.emit({
         id: this.user.id,
@@ -60,5 +70,16 @@ export class UserFormComponent {
       });
       this.closeForm()
     }
+  }
+  submitCreate() {
+    if (this.userForm.value.password.length < 4) {
+      return;
+    }
+    this.createUserEvent.emit({
+      fio: this.userForm.value.fio,
+      email: this.userForm.value.email,
+      password: this.userForm.value.password
+    });
+    this.closeForm();
   }
 }

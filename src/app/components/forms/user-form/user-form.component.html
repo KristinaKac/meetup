@@ -22,13 +22,15 @@
     <div class="form_control">
         <mat-form-field appearance="outline">
             <mat-label>Новый пароль</mat-label>
-            <input formControlName="password" type="password" matInput>
+            <input *ngIf="!isCreate" formControlName="password" type="password" matInput>
+            <input *ngIf="isCreate" formControlName="password" type="password" matInput required>
         </mat-form-field>
         <div class="error" *ngIf="userForm.controls['password'].invalid && userForm.controls['password'].touched">
+            <div *ngIf="userForm.controls['password'].hasError('required') && isCreate">Необходимо заполнить поле 'пароль'</div>
             <div *ngIf="userForm.controls['password'].hasError('minlength')">Минимальная длина пароля 4 символа</div>
         </div>
     </div>
-    <div class="form_control">
+    <div *ngIf="!isCreate" class="form_control">
         <mat-form-field appearance="outline">
             <mat-label>Добавить роль</mat-label>
             <mat-select formControlName="role">
@@ -40,6 +42,6 @@
 
     <div class="form_control">
         <button type="submit" mat-raised-button color="primary">Сохранить</button>
-        <button (click)="closeForm()" mat-raised-button color="primary">Отменить</button>
+        <button *ngIf="!isCreate" (click)="closeForm()" mat-raised-button color="primary">Отменить</button>
     </div>
 </form>

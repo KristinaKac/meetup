@@ -4,6 +4,7 @@ import { IRole } from '../../models/role';
 import { IUser } from '../../models/user';
 import { RoleService } from '../../services/role.service';
 import { UserService } from '../../services/user.service';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -19,7 +20,7 @@ export class UsersPageComponent {
 
   constructor(
     private userService: UserService,
-    private roleService: RoleService
+    private roleService: RoleService,
   ) { }
 
   ngOnInit(): void {
@@ -46,6 +47,12 @@ export class UsersPageComponent {
   }
   updateUser(id: number, email: string, fio: string, password: string) {
     this.userService.update(id, email, fio, password).subscribe();
+  }
+  createUser(value: { fio: string, email: string, password: string }) {
+    this.userService.create(value.fio, value.email, value.password).subscribe((user: IUser | null) => {
+      if (!user) { return }
+      this.getUsers();
+    })
   }
   addRole(name: string, userId: number) {
     this.userService.addRole(name, userId).subscribe((data: IRole | null) => {

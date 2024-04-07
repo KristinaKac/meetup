@@ -17,6 +17,13 @@ export class ModalComponent {
     @Inject(MAT_DIALOG_DATA) public data: { isCreate: boolean, meetup?: IMeetup },
   ) { }
 
+  getAll() {
+    this.meetupService.getAll().subscribe((data: IMeetup[] | null) => {
+      if (!data) { return }
+      this.meetupService.meetupList = data;
+    })
+  }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
@@ -27,12 +34,14 @@ export class ModalComponent {
       this.meetupService.create(form.value).subscribe((data: IMeetup | null) => {
         if (!data) { return }
         this.meetupService.createMeetup = data;
+        this.getAll();
         form.reset();
       })
     } else {
       this.meetupService.edit(form.value, this.data.meetup!).subscribe((data: IMeetup | null) => {
         if (!data) { return }
         this.meetupService.updateMeetup = data;
+        this.getAll();
         form.reset();
       })
     }

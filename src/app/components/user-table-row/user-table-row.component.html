@@ -10,5 +10,5 @@
         <button (click)="delete()" mat-raised-button color="primary">Удалить</button>
     </div>
 </div>
-<app-user-form *ngIf="isEdit" (updateEvent)="update($event)" (closeFormEvent)="closeForm()" [roleList]="roleList"
+<app-user-form [isCreate]="false" *ngIf="isEdit" (updateEvent)="update($event)" (closeFormEvent)="closeForm()" [roleList]="roleList"
     [user]="user"></app-user-form>

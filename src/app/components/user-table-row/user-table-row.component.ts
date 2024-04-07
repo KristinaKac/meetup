@@ -13,6 +13,7 @@ export class UserTableRowComponent {
 
   @Input() roleList!: Observable<IRole[]>;
   @Input() user!: IUser;
+  @Input() isCreate!: boolean;
 
   isEdit = false;
 
