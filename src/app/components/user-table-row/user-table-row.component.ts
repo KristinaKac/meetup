@@ -17,8 +17,15 @@ export class UserTableRowComponent {
   isEdit = false;
 
   @Output() updateEvent = new EventEmitter();
+  @Output() deleteEvent = new EventEmitter();
 
-  update(value: any) {
+  update(value: IUser) {
     this.updateEvent.emit(value)
+  }
+  delete() {
+    this.deleteEvent.emit(this.user.id)
+  }
+  closeForm() {
+    this.isEdit = false;
   }
 }

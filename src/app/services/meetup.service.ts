@@ -1,11 +1,8 @@
-import { AuthService } from './auth.service';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, catchError, map, of } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { IMeetup } from '../models/meetup';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, catchError, map, of, tap } from 'rxjs';
-import { FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +16,6 @@ export class MeetupService {
 
   constructor(
     private http: HttpClient,
-    private authService: AuthService,
-    private router: Router,
   ) { }
 
   get meetupList(): Observable<IMeetup[]> {
@@ -117,7 +112,7 @@ export class MeetupService {
   }
   edit(form: IMeetup, meetup: IMeetup): Observable<IMeetup | null> {
     return this.http
-      .put<IMeetup>(`${this.baseURL}/${meetup.id}`,
+      .put<IMeetup>(`${this.baseURL}/${meetup?.id}`,
         {
           name: form.name,
           description: form.description,
@@ -131,7 +126,7 @@ export class MeetupService {
         })
       .pipe(
         map(item => {
-          item.owner = meetup.owner;
+          item.owner = meetup!.owner;
           return item
         }),
         catchError((err): Observable<null> => {
