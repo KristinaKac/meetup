@@ -1,6 +1,6 @@
-<form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="row">
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()" [ngClass]="isCreate ? 'createForm' : 'form'">
     <div class="form_control">
-        <mat-form-field appearance="outline">
+        <mat-form-field class="input" appearance="outline">
             <mat-label>Имя</mat-label>
             <input formControlName="fio" type="text" matInput required="true">
         </mat-form-field>
@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="form_control">
-        <mat-form-field appearance="outline">
+        <mat-form-field class="input" appearance="outline">
             <mat-label>Почта</mat-label>
             <input formControlName="email" type="email" matInput required="true">
         </mat-form-field>
@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="form_control">
-        <mat-form-field appearance="outline">
+        <mat-form-field class="input" appearance="outline">
             <mat-label>Новый пароль</mat-label>
             <input *ngIf="!isCreate" formControlName="password" type="password" matInput>
             <input *ngIf="isCreate" formControlName="password" type="password" matInput required>
@@ -40,8 +40,8 @@
         </mat-form-field>
     </div>
 
-    <div class="form_control">
-        <button type="submit" mat-raised-button color="primary">Сохранить</button>
-        <button *ngIf="!isCreate" (click)="closeForm()" mat-raised-button color="primary">Отменить</button>
+    <div>
+        <button type="submit" mat-fab color="primary"><mat-icon>done</mat-icon></button>
+        <button *ngIf="!isCreate" (click)="closeForm()" mat-fab color="primary"><mat-icon>close</mat-icon></button>
     </div>
 </form>

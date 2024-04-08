@@ -2,3 +2,9 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
 }
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 15px;
+}

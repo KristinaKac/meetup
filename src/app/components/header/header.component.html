@@ -5,26 +5,28 @@
             <nav class="nav">
                 <ul class="nav_list">
                     <li class="nav_item">
-                        <a routerLink="" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                        <a routerLink="" routerLinkActive="active-link" class="router-link"
+                            [routerLinkActiveOptions]="{exact: true}">
                             О проекте</a>
                     </li>
                     <li *ngIf="authService.user" class="nav_item">
-                        <a routerLink="meetups" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                        <a routerLink="meetups" routerLinkActive="active-link" class="router-link"
+                            [routerLinkActiveOptions]="{exact: true}">
                             Все митапы</a>
                     </li>
                     <li *ngIf="authService.user" class="nav_item">
-                        <a routerLink="userMeetups" routerLinkActive="active-link"
+                        <a routerLink="userMeetups" routerLinkActive="active-link" class="router-link"
                             [routerLinkActiveOptions]="{exact: true}">Мои митапы</a>
                     </li>
                     <li *ngIf="authService.user && authService.isAdmin" class="nav_item">
-                        <a routerLink="users" routerLinkActive="active-link"
+                        <a routerLink="users" routerLinkActive="active-link" class="router-link"
                             [routerLinkActiveOptions]="{exact: true}">Пользователи</a>
                     </li>
                 </ul>
             </nav>
 
             <div *ngIf="authService.user; else isNotAuth">
-                <button (click)="logout()" class="white_btn">
+                <button (click)="logout()" mat-raised-button>
                     Выйти
                 </button>
             </div>

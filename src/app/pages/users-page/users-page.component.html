@@ -1,11 +1,21 @@
-<button (click)="isEdit = !isEdit" mat-raised-button color="primary">{{isEdit ? 'Закрыть' : 'Добавить пользователя'}}</button>
+<section class="page">
+    <div>
+        <button class="btn" (click)="isEdit = !isEdit" mat-raised-button color="primary">{{isEdit ? 'Закрыть' :
+            'Добавить
+            пользователя'}}</button>
+    </div>
 
-<app-user-form (createUserEvent)="createUser($event)" (closeFormEvent)="closeUserForm()" [isCreate]="true" *ngIf="isEdit"></app-user-form>
+    <app-user-form (createUserEvent)="createUser($event)" (closeFormEvent)="closeUserForm()" [isCreate]="true"
+        *ngIf="isEdit"></app-user-form>
 
-<pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+    <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
 
-<mat-spinner *ngIf="spinnerService.loading$ | async"></mat-spinner>
+    <mat-spinner *ngIf="spinnerService.loading$ | async"></mat-spinner>
 
-<div class="table" *ngFor="let user of userList$  | async | paginate: {itemsPerPage: 15, currentPage}" [user]="user" [roleList]="roleList$" 
-    app-user-table-row [isCreate]="false" (updateEvent)="update($event)" (deleteEvent)="deleteUser($event)">
-</div>
+    <div class="table">
+        <div class="row" *ngFor="let user of userList$  | async | paginate: {itemsPerPage: 15, currentPage}"
+            [user]="user" [roleList]="roleList$" app-user-table-row [isCreate]="false" (updateEvent)="update($event)"
+            (deleteEvent)="deleteUser($event)">
+        </div>
+    </div>
+</section>

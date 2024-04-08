@@ -4,7 +4,7 @@
 }
 
 .header_fixed {
-    background-color: burlywood;
+    background-color: #FF8A65;
     position: fixed;
     display: flex;
     justify-content: center;
@@ -27,16 +27,17 @@
     display: flex;
     align-items: center;
     column-gap: 30px;
+    list-style-type: none;
 }
 
-.nav_item a {
-    color: rgb(45, 45, 45);
+.router-link {
+    color: white;
     font-size: 14px;
+    text-decoration: none;
 }
 
 .active-link {
-    font-family: 'Roboto Bold', sans-serif;
-    font-weight: 600;
+    text-decoration: underline;
 }
 
 .btns {
