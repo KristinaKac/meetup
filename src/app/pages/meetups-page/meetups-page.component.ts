@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subject, takeUntil } from 'rxjs';
 import { IMeetup } from '../../models/meetup';
 import { MeetupService } from '../../services/meetup.service';
 
@@ -9,9 +9,11 @@ import { MeetupService } from '../../services/meetup.service';
   styleUrl: './meetups-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MeetupsPageComponent {
+export class MeetupsPageComponent implements OnInit, OnDestroy {
 
   public meetupList$!: Observable<IMeetup[]>;
+  private destroy: Subject<void> = new Subject();
+
   public searchFilter!: string;
   public criterionFilter!: 'name' | 'description' | 'location' | 'time' | 'owner';
 
@@ -21,19 +23,19 @@ export class MeetupsPageComponent {
 
   ngOnInit(): void {
     this.meetupList$ = this.meetupService.meetupList;
-    this.meetupService.getAll().subscribe((data: IMeetup[] | null) => {
+    this.meetupService.getAll().pipe(takeUntil(this.destroy)).subscribe((data: IMeetup[] | null) => {
       if (!data) { return }
       this.meetupService.meetupList = data;
     })
   }
   subscribe(value: { idMeetup: number, idUser: number }) {
-    this.meetupService.subscribe(value.idMeetup, value.idUser).subscribe((data: IMeetup | null) => {
+    this.meetupService.subscribe(value.idMeetup, value.idUser).pipe(takeUntil(this.destroy)).subscribe((data: IMeetup | null) => {
       if (!data) { return }
       this.meetupService.updateMeetup = data;
     })
   }
   unsubscribe(value: { idMeetup: number, idUser: number }) {
-    this.meetupService.unsubscribe(value.idMeetup, value.idUser).subscribe((data: IMeetup | null) => {
+    this.meetupService.unsubscribe(value.idMeetup, value.idUser).pipe(takeUntil(this.destroy)).subscribe((data: IMeetup | null) => {
       if (!data) { return }
       this.meetupService.updateMeetup = data;
     })
@@ -41,5 +43,9 @@ export class MeetupsPageComponent {
   filter(value: { search: string, criterion: 'name' | 'description' | 'location' | 'time' | 'owner' }) {
     this.searchFilter = value.search;
     this.criterionFilter = value.criterion;
+  }
+  ngOnDestroy(): void {
+    this.destroy.next();
+    this.destroy.complete();
   }
 }
