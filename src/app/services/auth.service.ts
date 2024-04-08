@@ -26,6 +26,11 @@ export class AuthService {
     if (!token) { return null }
     return this.parseJWT(token);
   }
+  public isAdmin() {
+    // if (this.user?.roles) {
+    //   this.user.roles.some(user => user.name === 'ADMIN');
+    // }
+  }
 
   login(email: string, password: string): Observable<IUser | null> {
     return this.http

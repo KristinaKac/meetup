@@ -24,7 +24,7 @@ export class UserService {
 
   set userList(value: IUser[]) {
     this.dataSubject.next(value);
-  } 
+  }
   get userList(): Observable<IUser[]> {
     return this._userList$;
   }
@@ -61,6 +61,10 @@ export class UserService {
       )
   }
   delete(id: number): Observable<IUser | null> {
+    if (id === this.authService.user?.id) {
+      alert('Невозможно удалить данного пользователя');
+      return of(null);
+    }
     return this.http
       .delete<IUser>(`${this.baseURL}/${id}`)
       .pipe(catchError((err): Observable<null> => {

@@ -11,7 +11,7 @@ export class HeaderComponent implements OnInit {
     public authService: AuthService
   ) { }
   ngOnInit(): void {
-    // this.isAdmin();
+    this.authService.isAdmin()
   }
   // isAdmin() {
   //   if (this.authService.user) {

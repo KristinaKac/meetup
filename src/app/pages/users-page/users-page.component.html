@@ -1,6 +1,6 @@
 <button (click)="isEdit = !isEdit" mat-raised-button color="primary">{{isEdit ? 'Закрыть' : 'Добавить пользователя'}}</button>
 
-<app-user-form (createUserEvent)="createUser($event)" [isCreate]="true" *ngIf="isEdit"></app-user-form>
+<app-user-form (createUserEvent)="createUser($event)" (closeFormEvent)="closeUserForm()" [isCreate]="true" *ngIf="isEdit"></app-user-form>
 
 <div class="table" *ngFor="let user of userList$ | async as userList" [user]="user" [roleList]="roleList$" 
     app-user-table-row [isCreate]="false" (updateEvent)="update($event)" (deleteEvent)="deleteUser($event)">

@@ -16,7 +16,7 @@ export class FilterMeetupsPipe implements PipeTransform {
 
     switch (criterion) {
       case 'owner':
-        meetupList = meetupList.filter(item => item[criterion].fio.toLowerCase().includes(search.toLowerCase()));
+        meetupList = meetupList.filter(item => item[criterion]?.fio.toLowerCase().includes(search.toLowerCase()));
         break;
       case 'name':
       case 'description':

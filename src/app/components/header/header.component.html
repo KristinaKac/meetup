@@ -4,6 +4,10 @@
 
             <nav class="nav">
                 <ul class="nav_list">
+                    <li class="nav_item">
+                        <a routerLink="" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                            О проекте</a>
+                    </li>
                     <li *ngIf="authService.user" class="nav_item">
                         <a routerLink="meetups" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
                             Все митапы</a>
@@ -27,10 +31,7 @@
 
             <ng-template #isNotAuth>
                 <div class="btns">
-                    <a class="white_btn" routerLink="registration">
-                        Регистрация
-                    </a>
-                    <a class="white_btn" routerLink="login">
+                    <a routerLink="login">
                         Войти
                     </a>
                 </div>

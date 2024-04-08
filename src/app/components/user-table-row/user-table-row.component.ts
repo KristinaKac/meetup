@@ -24,6 +24,7 @@ export class UserTableRowComponent {
     this.updateEvent.emit(value)
   }
   delete() {
+    if (!confirm('Вы действительно хотите удалить данного пользователя?')) { return }
     this.deleteEvent.emit(this.user.id)
   }
   closeForm() {

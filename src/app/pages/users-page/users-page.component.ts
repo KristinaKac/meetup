@@ -66,5 +66,8 @@ export class UsersPageComponent {
       this.getUsers();
     });
   }
+  closeUserForm() {
+    this.isEdit = false;
+  }
 }
 
