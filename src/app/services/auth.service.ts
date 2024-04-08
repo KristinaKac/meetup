@@ -11,6 +11,7 @@ import { Observable, catchError, map, of, tap } from 'rxjs';
 export class AuthService {
 
   baseURL: string = `${environment.backendOrigin}/auth`;
+  isAdmin: boolean = false;
 
   constructor(
     private http: HttpClient,
@@ -26,10 +27,12 @@ export class AuthService {
     if (!token) { return null }
     return this.parseJWT(token);
   }
-  public isAdmin() {
-    // if (this.user?.roles) {
-    //   this.user.roles.some(user => user.name === 'ADMIN');
-    // }
+  public checkAdmin() {
+    if (this.user?.roles) {
+      this.isAdmin = this.user.roles.some(user => user.name === 'ADMIN');
+    } else {
+      this.isAdmin = false;
+    }
   }
 
   login(email: string, password: string): Observable<IUser | null> {

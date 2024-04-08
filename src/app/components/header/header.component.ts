@@ -11,15 +11,11 @@ export class HeaderComponent implements OnInit {
     public authService: AuthService
   ) { }
   ngOnInit(): void {
-    this.authService.isAdmin()
+    this.authService.checkAdmin();
   }
-  // isAdmin() {
-  //   if (this.authService.user) {
-  //     return this.authService.user.roles.find(user => user.name === 'ADMIN');
-  //   }
-  // }
 
   logout() {
     this.authService.logout();
+    this.authService.checkAdmin();
   }
 }

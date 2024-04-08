@@ -21,12 +21,14 @@ export class LoginPageComponent {
     this.authService.login(value.email, value.password).subscribe((user: IUser | null) => {
       if (!user) { return }
       this.router.navigate(['meetups']);
+      this.authService.checkAdmin();
     })
   }
   registration(value: { fio: string, email: string, password: string }) {
     this.authService.registration(value.fio, value.email, value.password).subscribe((user: IUser | null) => {
       if (!user) { return }
       this.router.navigate(['meetups']);
+      this.authService.checkAdmin();
     })
   }
 }

@@ -6,13 +6,14 @@ import { UserMeetupsPageComponent } from './pages/user-meetups-page/user-meetups
 import { UsersPageComponent } from './pages/users-page/users-page.component';
 import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { authGuard } from './guards/auth.guard';
+import { adminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   { path: '', component: AboutPageComponent, title: 'About' },
   { path: 'login', component: LoginPageComponent, title: 'Login' },
   { path: 'meetups', component: MeetupsPageComponent, title: 'All Meetups', canActivate: [authGuard]},
   { path: 'userMeetups', component: UserMeetupsPageComponent, title: 'My Meetups', canActivate: [authGuard]},
-  { path: 'users', component: UsersPageComponent, title: 'Users', canActivate: [authGuard]},
+  { path: 'users', component: UsersPageComponent, title: 'Users', canActivate: [authGuard, adminGuard]},
   { path: '**', component: AboutPageComponent, redirectTo: '' }
 ];
 
