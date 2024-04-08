@@ -8,7 +8,7 @@ import moment from 'moment';
 })
 export class FilterMeetupsPipe implements PipeTransform {
 
-  transform(meetups: IMeetup[], search: string, criterion: 'name' | 'description' | 'location' | 'time' | 'owner'): IMeetup[] | null {
+  transform(meetups: IMeetup[], search: string, criterion: 'name' | 'description' | 'location' | 'time' | 'owner'): IMeetup[] | null | any {
     let meetupList: IMeetup[] = meetups;
 
     if (!meetupList) { return null }

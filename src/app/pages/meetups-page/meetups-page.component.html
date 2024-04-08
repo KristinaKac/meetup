@@ -1,10 +1,12 @@
 <app-filter-form (filterEvent)="filter($event)"></app-filter-form>
 
+<pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+
 <ul class="meetup_list" *ngIf="meetupList$ | async as meetupList">
     <app-meetup 
     (subscribeEvent)="subscribe($event)"
     (unsubscribeEvent)="unsubscribe($event)"
-    *ngFor="let item of meetupList | filterMeetups: searchFilter : criterionFilter" 
+    *ngFor="let item of meetupList | filterMeetups: searchFilter : criterionFilter  | paginate: {itemsPerPage: 10, currentPage}" 
     [meetup]="item"
     ></app-meetup>
 </ul>

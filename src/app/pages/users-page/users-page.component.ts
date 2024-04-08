@@ -15,9 +15,10 @@ import { UserService } from '../../services/user.service';
 export class UsersPageComponent implements OnInit, OnDestroy {
   tableTitles: string[] = ['Имя', 'Почта', 'Пароль', 'Роли', 'Действия'];
   public isEdit: boolean = false;
-  public userList$!: Observable<IUser[]>;
+  public userList$!: Observable<IUser[] | any>;
   public roleList$!: Observable<IRole[]>;
   private destroy: Subject<void> = new Subject();
+  currentPage = 1;
 
   constructor(
     private userService: UserService,
