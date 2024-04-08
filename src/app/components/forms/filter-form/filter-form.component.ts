@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import 'moment/locale/ru';
@@ -7,7 +7,8 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 @Component({
   selector: 'app-filter-form',
   templateUrl: './filter-form.component.html',
-  styleUrl: './filter-form.component.scss'
+  styleUrl: './filter-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class FilterFormComponent implements OnInit {

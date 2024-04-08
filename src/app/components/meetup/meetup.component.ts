@@ -1,6 +1,6 @@
 import { IMeetup } from './../../models/meetup';
 import { AuthService } from './../../services/auth.service';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import 'moment-timezone';
 import moment from 'moment';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,7 +13,8 @@ moment.tz.setDefault();
 @Component({
   selector: 'app-meetup',
   templateUrl: './meetup.component.html',
-  styleUrl: './meetup.component.scss'
+  styleUrl: './meetup.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MeetupComponent implements OnInit {
 

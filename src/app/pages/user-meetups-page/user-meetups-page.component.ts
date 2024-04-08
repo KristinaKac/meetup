@@ -1,16 +1,16 @@
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { ModalComponent } from '../../components/modal/modal.component';
+import { IMeetup } from '../../models/meetup';
 import { AuthService } from './../../services/auth.service';
 import { MeetupService } from './../../services/meetup.service';
-import { Component, OnInit } from '@angular/core';
-import { IMeetup } from '../../models/meetup';
-import { FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from '../../components/modal/modal.component';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-meetups-page',
   templateUrl: './user-meetups-page.component.html',
-  styleUrl: './user-meetups-page.component.scss'
+  styleUrl: './user-meetups-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserMeetupsPageComponent implements OnInit {
 

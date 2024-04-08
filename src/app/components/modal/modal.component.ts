@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IMeetup } from '../../models/meetup';
 import { FormGroup } from '@angular/forms';
@@ -7,7 +7,8 @@ import { MeetupService } from '../../services/meetup.service';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
-  styleUrl: './modal.component.scss'
+  styleUrl: './modal.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalComponent {
 

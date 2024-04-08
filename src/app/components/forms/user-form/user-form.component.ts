@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { IRole } from '../../../models/role';
@@ -7,7 +7,8 @@ import { IUser } from '../../../models/user';
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
-  styleUrl: './user-form.component.scss'
+  styleUrl: './user-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserFormComponent {
   userForm!: FormGroup;

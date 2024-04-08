@@ -1,16 +1,16 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IRole } from '../../models/role';
 import { IUser } from '../../models/user';
 import { RoleService } from '../../services/role.service';
 import { UserService } from '../../services/user.service';
-import { AuthService } from '../../services/auth.service';
 
 
 @Component({
   selector: 'app-users-page',
   templateUrl: './users-page.component.html',
-  styleUrl: './users-page.component.scss'
+  styleUrl: './users-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersPageComponent {
   tableTitles: string[] = ['Имя', 'Почта', 'Пароль', 'Роли', 'Действия'];

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import moment from 'moment';
@@ -8,7 +8,8 @@ import { IMeetup } from '../../../models/meetup';
 @Component({
   selector: 'app-meetup-form',
   templateUrl: './meetup-form.component.html',
-  styleUrl: './meetup-form.component.scss'
+  styleUrl: './meetup-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MeetupFormComponent implements OnInit {
 

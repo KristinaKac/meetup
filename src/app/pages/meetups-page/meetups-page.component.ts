@@ -1,12 +1,13 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { IMeetup } from '../../models/meetup';
 import { MeetupService } from '../../services/meetup.service';
-import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-meetups-page',
   templateUrl: './meetups-page.component.html',
   styleUrl: './meetups-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MeetupsPageComponent {
 

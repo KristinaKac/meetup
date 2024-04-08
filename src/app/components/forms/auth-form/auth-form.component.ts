@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-auth-form',
   templateUrl: './auth-form.component.html',
-  styleUrl: './auth-form.component.scss'
+  styleUrl: './auth-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthFormComponent {
   authForm: FormGroup

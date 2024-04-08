@@ -1,13 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IRole } from '../../models/role';
 import { IUser } from '../../models/user';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: '[app-user-table-row]',
   templateUrl: './user-table-row.component.html',
-  styleUrl: './user-table-row.component.scss'
+  styleUrl: './user-table-row.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserTableRowComponent {
 
