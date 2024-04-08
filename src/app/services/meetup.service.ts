@@ -58,6 +58,11 @@ export class MeetupService {
     return this.http
       .get<IMeetup[]>(`${this.baseURL}`)
       .pipe(
+        map((data) => {
+          return data.sort((a: IMeetup, b: IMeetup) =>
+            new Date(b.time) > new Date(a.time) ? 1 : -1
+          )
+        }),
         catchError((err): Observable<null> => {
           alert(err.error.message);
           return of(null);
@@ -88,18 +93,18 @@ export class MeetupService {
   }
   create(form: IMeetup): Observable<IMeetup | null> {
     return this.http
-      .post<IMeetup>(`${this.baseURL}`, 
-      {
-        name: form.name,
-        description: form.description,
-        time: form.time,
-        duration: form.duration,
-        location: form.location,
-        target_audience: form.target_audience,
-        need_to_know: form.need_to_know,
-        will_happen: form.will_happen,
-        reason_to_come: form.reason_to_come
-      })
+      .post<IMeetup>(`${this.baseURL}`,
+        {
+          name: form.name,
+          description: form.description,
+          time: form.time,
+          duration: form.duration,
+          location: form.location,
+          target_audience: form.target_audience,
+          need_to_know: form.need_to_know,
+          will_happen: form.will_happen,
+          reason_to_come: form.reason_to_come
+        })
       .pipe(
         map(item => {
           item.users = [];

@@ -8,7 +8,10 @@
     <app-meetup 
     (subscribeEvent)="subscribe($event)"
     (unsubscribeEvent)="unsubscribe($event)"
-    *ngFor="let item of meetupList | filterMeetups: searchFilter : criterionFilter | paginate: {itemsPerPage: 10, currentPage: meetupService.currentPage}" 
+    *ngFor="let item of meetupList
+    | filterMeetups: searchFilter : criterionFilter 
+    | paginate: {itemsPerPage: 10, currentPage: meetupService.currentPage}" 
     [meetup]="item"
+
     ></app-meetup>
 </ul>
