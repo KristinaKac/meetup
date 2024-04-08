@@ -13,6 +13,7 @@ export class MeetupService {
 
   private dataSubject = new BehaviorSubject<IMeetup[]>([]);
   private _meetupList$: Observable<IMeetup[]> = this.dataSubject.asObservable();
+  public currentPage = 1;
 
   constructor(
     private http: HttpClient,
