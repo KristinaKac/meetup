@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { IMeetup } from '../../models/meetup';
 import { MeetupService } from '../../services/meetup.service';
+import { SpinnerService } from '../../services/spinner.service';
 
 @Component({
   selector: 'app-meetups-page',
@@ -13,13 +14,14 @@ export class MeetupsPageComponent implements OnInit, OnDestroy {
 
   public meetupList$!: Observable<IMeetup[] | any>;
   private destroy: Subject<void> = new Subject();
-  currentPage = 1;
+  
 
   public searchFilter!: string;
   public criterionFilter!: 'name' | 'description' | 'location' | 'time' | 'owner';
 
   constructor(
-    public meetupService: MeetupService
+    public meetupService: MeetupService,
+    public spinnerService: SpinnerService
   ) { }
 
   ngOnInit(): void {

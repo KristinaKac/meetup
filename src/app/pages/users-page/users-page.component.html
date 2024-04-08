@@ -4,6 +4,8 @@
 
 <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
 
+<mat-spinner *ngIf="spinnerService.loading$ | async"></mat-spinner>
+
 <div class="table" *ngFor="let user of userList$  | async | paginate: {itemsPerPage: 15, currentPage}" [user]="user" [roleList]="roleList$" 
     app-user-table-row [isCreate]="false" (updateEvent)="update($event)" (deleteEvent)="deleteUser($event)">
 </div>

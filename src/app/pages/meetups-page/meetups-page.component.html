@@ -2,6 +2,8 @@
 
 <pagination-controls (pageChange)="meetupService.currentPage= $event"></pagination-controls>
 
+<mat-spinner *ngIf="spinnerService.loading$ | async"></mat-spinner>
+
 <ul class="meetup_list" *ngIf="meetupList$ | async as meetupList">
     <app-meetup 
     (subscribeEvent)="subscribe($event)"

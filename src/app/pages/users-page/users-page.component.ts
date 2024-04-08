@@ -4,6 +4,7 @@ import { IRole } from '../../models/role';
 import { IUser } from '../../models/user';
 import { RoleService } from '../../services/role.service';
 import { UserService } from '../../services/user.service';
+import { SpinnerService } from '../../services/spinner.service';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class UsersPageComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private roleService: RoleService,
+    public spinnerService: SpinnerService
   ) { }
 
   ngOnInit(): void {

@@ -17,7 +17,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -37,6 +38,7 @@ import { UserTableRowComponent } from './components/user-table-row/user-table-ro
 import { UserFormComponent } from './components/forms/user-form/user-form.component';
 import { AboutPageComponent } from './pages/about-page/about-page.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { spinnerInterceptor } from './interceptors/spinner.interceptor';
 
 
 @NgModule({
@@ -74,11 +76,13 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatDatepickerModule,
     MatDialogModule,
     MatTableModule,
+    MatProgressSpinnerModule,
     NgxPaginationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: authInterceptor, multi: true },
     { provide: MAT_DATE_LOCALE, useValue: 'ru_RU' },
+    { provide: HTTP_INTERCEPTORS, useClass: spinnerInterceptor, multi: true },
     provideMomentDateAdapter(),
     provideAnimationsAsync()
   ],

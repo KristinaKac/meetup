@@ -5,6 +5,7 @@ import { ModalComponent } from '../../components/modal/modal.component';
 import { IMeetup } from '../../models/meetup';
 import { AuthService } from './../../services/auth.service';
 import { MeetupService } from './../../services/meetup.service';
+import { SpinnerService } from '../../services/spinner.service';
 
 @Component({
   selector: 'app-user-meetups-page',
@@ -20,6 +21,7 @@ export class UserMeetupsPageComponent implements OnInit, OnDestroy {
   constructor(
     public meetupService: MeetupService,
     public authService: AuthService,
+    public spinnerService: SpinnerService,
     public dialog: MatDialog
   ) { }
 
