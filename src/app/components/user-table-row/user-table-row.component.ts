@@ -15,7 +15,7 @@ export class UserTableRowComponent {
   @Input() user!: IUser;
   @Input() isCreate!: boolean;
 
-  public isEdit = false;
+  isEdit = false;
 
   @Output() updateEvent = new EventEmitter();
   @Output() deleteEvent = new EventEmitter();

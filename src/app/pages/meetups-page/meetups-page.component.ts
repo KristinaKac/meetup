@@ -14,6 +14,8 @@ export class MeetupsPageComponent implements OnInit, OnDestroy {
 
   public meetupList$!: Observable<IMeetup[] | any>;
   private destroy: Subject<void> = new Subject();
+  
+
   public searchFilter!: string;
   public criterionFilter!: 'name' | 'description' | 'location' | 'time' | 'owner';
 
@@ -24,40 +26,27 @@ export class MeetupsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.meetupList$ = this.meetupService.meetupList;
-    this.meetupService
-      .getAll()
-      .pipe(takeUntil(this.destroy))
-      .subscribe((data: IMeetup[] | null) => {
-        if (!data) { return }
-        this.meetupService.meetupList = data;
-      })
+    this.meetupService.getAll().pipe(takeUntil(this.destroy)).subscribe((data: IMeetup[] | null) => {
+      if (!data) { return }
+      this.meetupService.meetupList = data;
+    })
   }
-
   subscribe(value: { idMeetup: number, idUser: number }) {
-    this.meetupService
-      .subscribe(value.idMeetup, value.idUser)
-      .pipe(takeUntil(this.destroy))
-      .subscribe((data: IMeetup | null) => {
-        if (!data) { return }
-        this.meetupService.updateMeetup = data;
-      })
+    this.meetupService.subscribe(value.idMeetup, value.idUser).pipe(takeUntil(this.destroy)).subscribe((data: IMeetup | null) => {
+      if (!data) { return }
+      this.meetupService.updateMeetup = data;
+    })
   }
-
   unsubscribe(value: { idMeetup: number, idUser: number }) {
-    this.meetupService
-      .unsubscribe(value.idMeetup, value.idUser)
-      .pipe(takeUntil(this.destroy))
-      .subscribe((data: IMeetup | null) => {
-        if (!data) { return }
-        this.meetupService.updateMeetup = data;
-      })
+    this.meetupService.unsubscribe(value.idMeetup, value.idUser).pipe(takeUntil(this.destroy)).subscribe((data: IMeetup | null) => {
+      if (!data) { return }
+      this.meetupService.updateMeetup = data;
+    })
   }
-
   filter(value: { search: string, criterion: 'name' | 'description' | 'location' | 'time' | 'owner' }) {
     this.searchFilter = value.search;
     this.criterionFilter = value.criterion;
   }
-  
   ngOnDestroy(): void {
     this.destroy.next();
     this.destroy.complete();

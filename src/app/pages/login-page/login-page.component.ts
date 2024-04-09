@@ -21,24 +21,18 @@ export class LoginPageComponent implements OnDestroy {
   ) { }
 
   login(value: { email: string, password: string }) {
-    this.authService
-      .login(value.email, value.password)
-      .pipe(takeUntil(this.destroy))
-      .subscribe((user: IUser | null) => {
-        if (!user) { return }
-        this.router.navigate(['meetups']);
-        this.authService.checkAdmin();
-      })
+    this.authService.login(value.email, value.password).pipe(takeUntil(this.destroy)).subscribe((user: IUser | null) => {
+      if (!user) { return }
+      this.router.navigate(['meetups']);
+      this.authService.checkAdmin();
+    })
   }
   registration(value: { fio: string, email: string, password: string }) {
-    this.authService
-      .registration(value.fio, value.email, value.password)
-      .pipe(takeUntil(this.destroy))
-      .subscribe((user: IUser | null) => {
-        if (!user) { return }
-        this.router.navigate(['meetups']);
-        this.authService.checkAdmin();
-      })
+    this.authService.registration(value.fio, value.email, value.password).pipe(takeUntil(this.destroy)).subscribe((user: IUser | null) => {
+      if (!user) { return }
+      this.router.navigate(['meetups']);
+      this.authService.checkAdmin();
+    })
   }
   ngOnDestroy(): void {
     this.destroy.next();

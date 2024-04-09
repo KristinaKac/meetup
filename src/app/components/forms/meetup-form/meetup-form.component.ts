@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import moment from 'moment';
@@ -13,15 +13,15 @@ import { IMeetup } from '../../../models/meetup';
 })
 export class MeetupFormComponent implements OnInit {
 
-  private formBuilder: FormBuilder = inject(FormBuilder);
-  public meetupForm!: FormGroup
-  public today = new Date();
+  meetupForm!: FormGroup
+  today = new Date();
 
   @Output() meetupEvent = new EventEmitter();
   @Input() meetup!: IMeetup | undefined;
 
   constructor(
     @Inject(MAT_DATE_LOCALE) private _locale: string,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
@@ -29,7 +29,8 @@ export class MeetupFormComponent implements OnInit {
   }
   initForm() {
     let timeHoursMeetup = this.getTime();
-    this.meetupForm = this.formBuilder.group({
+
+    this.meetupForm = new FormGroup({
       name: new FormControl<string>(this.meetup?.name || '', [Validators.required, Validators.minLength(3)]),
       description: new FormControl<string>(this.meetup?.description || '', [Validators.required]),
       time: new FormControl<string>(this.meetup?.time || '', [Validators.required]),
@@ -42,15 +43,20 @@ export class MeetupFormComponent implements OnInit {
       reason_to_come: new FormControl<string>(this.meetup?.reason_to_come || '', [Validators.required]),
     });
   }
+
+
   onSubmit() {
     if (this.meetupForm.invalid) { return }
+
     const timeArr = this.meetupForm.value.timeHours.split(':');
     this.meetupForm.value.time = moment(this.meetupForm.value.time);
     this.meetupForm.value.time.hour(timeArr[0]).minute(timeArr[1]);
+
     this.meetupEvent.emit(this.meetupForm);
   }
+  
   getTime(): string | null {
-    if (!this.meetup) { return null }
+    if (!this.meetup) { return null}
     return moment(this.meetup?.time).format('HH:mm');
   }
 }

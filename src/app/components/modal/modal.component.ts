@@ -21,15 +21,6 @@ export class ModalComponent implements OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: { isCreate: boolean, meetup?: IMeetup },
   ) { }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  createEditMeetup(form: FormGroup) {
-    this.data.isCreate ? this.createMeetup(form) : this.editMeettup(form);
-    this.dialogRef.close();
-  }
-
   getAll() {
     this.meetupService
       .getAll()
@@ -40,6 +31,14 @@ export class ModalComponent implements OnDestroy {
       })
   }
 
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  createEditMeetup(form: FormGroup) {
+    this.data.isCreate ? this.createMeetup(form) : this.editMeettup(form);
+    this.dialogRef.close();
+  }
   createMeetup(form: FormGroup) {
     this.meetupService
       .create(form.value)
@@ -51,7 +50,6 @@ export class ModalComponent implements OnDestroy {
         form.reset();
       })
   }
-  
   editMeettup(form: FormGroup) {
     this.meetupService
       .edit(form.value, this.data.meetup!)
