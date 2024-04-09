@@ -1,6 +1,7 @@
 <app-filter-form (filterEvent)="filter($event)"></app-filter-form>
 
-<pagination-controls (pageChange)="meetupService.currentPage= $event"></pagination-controls>
+<pagination-controls previousLabel="Предыдущая"
+nextLabel="Следующая" (pageChange)="meetupService.currentPage= $event"></pagination-controls>
 
 <mat-spinner *ngIf="spinnerService.loading$ | async"></mat-spinner>
 

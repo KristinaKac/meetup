@@ -1,7 +1,7 @@
 .form {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    width: 100%;
+    grid-template-columns: repeat(4, 2fr) 1fr;
+    column-gap: 10px;
 }
 
 .createForm {
@@ -10,6 +10,6 @@
     column-gap: 15px;
 }
 
-.form_control, .input {
+.form_control, .input, .select {
     width: 100%;
 }

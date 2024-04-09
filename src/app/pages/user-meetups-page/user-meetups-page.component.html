@@ -1,4 +1,6 @@
-<button mat-raised-button (click)="openDialog()" color="primary">Создать новый митап</button>
+<div class="btn">
+    <button mat-raised-button (click)="openDialog()" color="primary">Создать новый митап</button>
+</div>
 
 <mat-spinner *ngIf="spinnerService.loading$ | async"></mat-spinner>
 

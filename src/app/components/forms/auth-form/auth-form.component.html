@@ -31,12 +31,16 @@
         </div>
     </div>
 
-    <button type="button" (click)="formType = 'login'" *ngIf="formType === 'registration'">Есть аккаунт? Войдите</button>
-    <button type="button" (click)="formType = 'registration'" *ngIf="formType === 'login'">Нет аккаунта? Создайте</button>
+    <div class="form_control">
+        <button mat-button type="button" (click)="formType = 'login'" *ngIf="formType === 'registration'">Есть аккаунт?
+            Войдите</button>
+        <button mat-button type="button" (click)="formType = 'registration'" *ngIf="formType === 'login'">Нет аккаунта?
+            Создайте</button>
+    </div>
 
     <div class="form_control">
         <button [disabled]="authForm.invalid" type="submit" mat-raised-button color="primary">
-        {{formType === 'registration' ? 'Зарегистрироваться' : 'Войти'}}
+            {{formType === 'registration' ? 'Зарегистрироваться' : 'Войти'}}
         </button>
     </div>
 </form>

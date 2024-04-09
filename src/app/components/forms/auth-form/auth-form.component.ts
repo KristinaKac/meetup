@@ -35,6 +35,9 @@ export class AuthFormComponent {
         this.authForm.reset();
         break;
       case 'registration':
+        if (!this.authForm.value.fio) {
+          return
+        }
         this.registrationEvent.emit({
           fio: this.authForm.value.fio,
           email: this.authForm.value.email,

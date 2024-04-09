@@ -1,10 +1,10 @@
 .row {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 2fr) 1fr;
+    font-size: 14px;
 }
 .cell {
     display: flex;
-    justify-content: center;
     align-items: center;
     column-gap: 15px;
 }

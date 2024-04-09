@@ -31,9 +31,9 @@
         </div>
     </div>
     <div *ngIf="!isCreate" class="form_control">
-        <mat-form-field appearance="outline">
+        <mat-form-field class="select" appearance="outline">
             <mat-label>Добавить роль</mat-label>
-            <mat-select formControlName="role">
+            <mat-select class="select" formControlName="role">
                 <mat-option *ngFor="let role of roleList | async" value="{{role.name}}"
                     disabled="{{check(role.name)}}">{{role.name}}</mat-option>
             </mat-select>
