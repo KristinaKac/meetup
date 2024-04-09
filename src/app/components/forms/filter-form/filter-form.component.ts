@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, Inject, OnInit, Output, inject } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import 'moment/locale/ru';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
@@ -12,8 +12,9 @@ import { debounceTime, distinctUntilChanged } from 'rxjs';
 })
 
 export class FilterFormComponent implements OnInit {
-
-  filterForm: FormGroup;
+  
+  private formBuilder: FormBuilder = inject(FormBuilder);
+  public filterForm: FormGroup;
 
   @Output() filterEvent = new EventEmitter();
   @Output() resetEvent = new EventEmitter();
@@ -21,7 +22,7 @@ export class FilterFormComponent implements OnInit {
   constructor(
     @Inject(MAT_DATE_LOCALE) private _locale: string,
   ) {
-    this.filterForm = new FormGroup({
+    this.filterForm = this.formBuilder.group({
       search: new FormControl<string>(''),
       criterion: new FormControl<'name' | 'description' | 'location' | 'time' | 'owner'>('name', [Validators.required])
     });
@@ -36,7 +37,6 @@ export class FilterFormComponent implements OnInit {
         this.filterEvent.emit({ search: text, criterion: this.filterForm.value.criterion })
       });
   }
-
   getDateFormatString(): string {
     if (this._locale === 'ru_RU') {
       return 'ДД.ММ.ГГГГ';

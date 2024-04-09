@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-auth-form',
@@ -8,15 +8,19 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthFormComponent {
-  authForm: FormGroup
+  private formBuilder: FormBuilder = inject(FormBuilder);
+  public authForm!: FormGroup
 
   @Output() loginEvent = new EventEmitter();
   @Output() registrationEvent = new EventEmitter();
   @Input() formType: 'login' | 'registration' = 'login';
 
-
   constructor() {
-    this.authForm = new FormGroup({
+    this.iniForm();
+  }
+
+  iniForm() {
+    this.authForm = this.formBuilder.group({
       fio: new FormControl<string>('', [Validators.minLength(2)]),
       email: new FormControl<string>('', [Validators.required, Validators.email]),
       password: new FormControl<string>('', [Validators.required, Validators.minLength(4)])

@@ -7,9 +7,11 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
+  
   constructor(
     public authService: AuthService
   ) { }
+
   ngOnInit(): void {
     this.authService.checkAdmin();
   }

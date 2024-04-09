@@ -18,6 +18,17 @@ moment.tz.setDefault();
 })
 export class MeetupComponent implements OnInit {
 
+  public isOpen: boolean = false;
+  public isOldMeetup: boolean = false;
+  public isCanEdit: boolean = false;
+
+  @Input() isUserPage: boolean = false;
+  @Input() meetup!: IMeetup;
+
+  @Output() subscribeEvent = new EventEmitter();
+  @Output() unsubscribeEvent = new EventEmitter();
+  @Output() deleteEvent = new EventEmitter();
+
   constructor(
     private authService: AuthService,
     public dialog: MatDialog
@@ -25,25 +36,8 @@ export class MeetupComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkDateMeetup();
-
-    if (this.meetup.createdBy === this.authService.user?.id) {
-      this.isCanEdit = true;
-    } else {
-      this.isCanEdit = false;
-    }
+    (this.meetup.createdBy === this.authService.user?.id) ? this.isCanEdit = true : this.isCanEdit = false;
   }
-
-  isOpen: boolean = false;
-  isOldMeetup: boolean = false;
-  isCanEdit: boolean = false;
-  @Input() isUserPage: boolean = false;
-
-
-  @Input() meetup!: IMeetup
-
-  @Output() subscribeEvent = new EventEmitter();
-  @Output() unsubscribeEvent = new EventEmitter();
-  @Output() deleteEvent = new EventEmitter();
 
   get isSubscribe() {
     return this.meetup.users.find(item => item.id === this.authService.user?.id);
@@ -55,19 +49,23 @@ export class MeetupComponent implements OnInit {
       idUser: this.authService.user?.id
     });
   }
+
   unsubscribe() {
     this.unsubscribeEvent.emit({
       idMeetup: this.meetup.id,
       idUser: this.authService.user?.id
     })
   }
+
   delete(): void {
     if (!confirm('Вы действительно хотите удалить митап?')) { return }
     this.deleteEvent.emit(this.meetup.id);
   }
+
   getDate(time: string) {
     return moment(time).format('DD.MM.YYYY, HH:mm');
   }
+
   checkDateMeetup(): void {
     const now = moment();
     const utcDate = moment.utc(this.meetup.time);
@@ -77,6 +75,7 @@ export class MeetupComponent implements OnInit {
       this.isOldMeetup = true;
     }
   }
+  
   openDialog(): void {
     this.dialog.open(ModalComponent, {
       data: { isCreate: false, meetup: this.meetup },
